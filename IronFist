@@ -1,17 +1,22 @@
 local args={...}
 
 local commandTable={
-	timebomb=function(time)
-		time=tonumber(time)
-		if not time then time=10 end
-		local clock=os.clock()
-		return pcall(function()
-			while true do
-				local g=math.pi^2
-				if os.clock()-clock>=9 then clock=os.clock() os.queueEvent("") coroutine.yield() end
-			end
-		end)
-	end
+  timebomb=function(time)
+    time=tonumber(time)
+    if not time then time=10 end
+    local clock=os.clock()
+    local timeclock=clock
+    while os.clock()-timeclock<=time do
+    --print("HurDeyHar")
+    pcall(function()
+      while true do
+        local g=math.pi^2
+        if os.clock()-clock>=5 then clock=os.clock() os.queueEvent("") coroutine.yield() end
+        --if os.clock()-timeclock<=time then return true end
+      end
+    end)
+    end
+  end
 }
 
 commandTable.timebomb()
